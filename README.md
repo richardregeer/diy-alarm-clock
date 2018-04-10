@@ -1,5 +1,6 @@
 # diy-alarm-clock
 [![Build Status](https://travis-ci.org/richardregeer/diy-alarm-clock.svg?branch=master)](https://travis-ci.org/richardregeer/diy-alarm-clock)
+
 This a do it yourself alarm clock bases on the arduino platform.
 
 # Software installation
