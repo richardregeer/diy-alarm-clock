@@ -222,9 +222,9 @@ void setup() {
 void initButtons() {
   Serial.println(F("Initializing buttons..."));
 
-  pinMode(FUNCTION_BUTTON, INPUT);
-  pinMode(PLUS_BUTTON, INPUT);
-  pinMode(MIN_BUTTON, INPUT);
+  pinMode(FUNCTION_BUTTON, INPUT_PULLUP);
+  pinMode(PLUS_BUTTON, INPUT_PULLUP);
+  pinMode(MIN_BUTTON, INPUT_PULLUP);
   pinMode(SNOOZE_BUTTON, INPUT_PULLUP);
 }
 
@@ -324,22 +324,22 @@ void loop() {
        enableAlarm();
     }
 
-    if (buttonStates.minButtonState == HIGH && !triggerNightLight) {
+    if (buttonStates.minButtonState == LOW && !triggerNightLight) {
       Serial.println(F("Trigger night light"));
       nightLightOn = !nightLightOn;
       triggerNightLight = true;
     }
 
-    if (buttonStates.minButtonState == LOW) {
+    if (buttonStates.minButtonState == HIGH) {
       triggerNightLight = false;
     }
 
-    if (buttonStates.minButtonState == LOW) {
+    if (buttonStates.minButtonState == HIGH) {
       triggerSnooze = false;
     }
 
     // Activate alarm after 5 secondes if plus button is presses in clock mode.
-    if (buttonStates.plusButtonState == HIGH  && !triggerSnooze) {
+    if (buttonStates.plusButtonState == LOW  && !triggerSnooze) {
       alarmActive = !alarmActive;
       triggerSnooze = !triggerSnooze;
 
@@ -387,7 +387,7 @@ void loop() {
   }
 
   // Goto next menu
-  if (buttonStates.functionButtonState == HIGH && buttonStates.snoozeButtonState == LOW && activeMode == MODE_MENU) {
+  if (buttonStates.functionButtonState == LOW && buttonStates.snoozeButtonState == LOW && activeMode == MODE_MENU) {
     activeSettingMenu++;
     if (activeSettingMenu > ALARM_TIME_MINUTE_MENU) {
       activeSettingMenu = SOUND_LEVEL_MENU;
@@ -396,10 +396,10 @@ void loop() {
     delay(100);
   }
 
-  if (buttonStates.functionButtonState == HIGH && activeMode != MODE_MENU) {
+  if (buttonStates.functionButtonState == LOW && activeMode != MODE_MENU) {
     activeMode = MODE_MENU;
   }
-  else if(buttonStates.functionButtonState == LOW && activeMode == MODE_MENU) {
+  else if(buttonStates.functionButtonState == HIGH && activeMode == MODE_MENU) {
     Serial.println(F("Store settings"));
     activeMode = MODE_CLOCK;
 
@@ -571,10 +571,10 @@ void setLights(RGB rgb, int mode) {
 int handleSettingInput(SettingValue settingValue, ButtonStates buttonStates, int changeBy = 1) {
   int newValue = settingValue.currentValue;
 
-  if (buttonStates.minButtonState == HIGH) {
+  if (buttonStates.minButtonState == LOW) {
     newValue-= changeBy;
   }
-  else if (buttonStates.plusButtonState == HIGH) {
+  else if (buttonStates.plusButtonState == LOW) {
     newValue+= changeBy;
   }
 
