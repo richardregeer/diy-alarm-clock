@@ -11,6 +11,14 @@
 
 #define BAUD_RATE 57600
 
+// TODO install LED package
+// TODO install Button package
+// EEPROM helper
+// RGB class / struct helper
+// Menu
+// Add Arduino LOG package
+// Timezone package
+
 struct RGB {
   byte R;
   byte G;
