@@ -9,6 +9,8 @@
 #include "SoftwareSerial.h"
 #include "DFRobotDFPlayerMini.h"
 
+using namespace std;
+
 #define BAUD_RATE 57600
 
 // TODO install LED package
@@ -24,6 +26,7 @@ struct RGB {
   byte G;
   byte B;
 };
+
 
 void initButtons();
 void initLeds();
