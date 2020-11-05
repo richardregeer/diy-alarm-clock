@@ -11,7 +11,7 @@
 
 using namespace std;
 
-#define BAUD_RATE 57600
+#define BAUD_RATE 9600
 
 // TODO install LED package
 // TODO install Button package
