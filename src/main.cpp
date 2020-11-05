@@ -520,7 +520,7 @@ void setLight(byte lightNr, RGB rgb, int delayTime) {
 
 void setLights(RGB rgb, int mode) {
   unsigned long currentMillis = millis();
-  int ledDelay;
+  unsigned int ledDelay;
   RGB ledColor = rgb;
   bool blink = true;
   int onOffDelay = 0;
